@@ -14,8 +14,13 @@ function get_db_connection(): PDO {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
-    $pdo = new PDO($dsn, $cfg['user'], $cfg['password'], $options);
-    return $pdo;
+    try {
+        $pdo = new PDO($dsn, $cfg['user'], $cfg['password'], $options);
+        return $pdo;
+    } catch (PDOException $e) {
+        error_log("Database connection failed: " . $e->getMessage());
+        throw new Exception("Database connection failed");
+    }
 }
 ?>
 

@@ -10,7 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require __DIR__ . '/db.php';
-$pdo = get_db_connection();
+
+try {
+    $pdo = get_db_connection();
+} catch (Exception $e) {
+    respond(['error' => 'Database connection failed: ' . $e->getMessage()], 500);
+}
 
 function json_input() {
     $raw = file_get_contents('php://input');
