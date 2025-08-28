@@ -1,5 +1,5 @@
 // Shared API helper and page wiring
-const API_BASE = 'InventorymanagementProject_Nobab_06/backend/api.php';
+const API_BASE = '../Backend/api.php';
 
 async function apiRequest(entity, method = 'GET', data = null, id = null) {
   const url = new URL(API_BASE, window.location.href);
